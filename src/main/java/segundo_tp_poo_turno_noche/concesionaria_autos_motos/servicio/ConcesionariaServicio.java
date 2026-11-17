@@ -3,7 +3,9 @@ package segundo_tp_poo_turno_noche.concesionaria_autos_motos.servicio;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import segundo_tp_poo_turno_noche.concesionaria_autos_motos.interfaces.InformacionVehiculo;
 import segundo_tp_poo_turno_noche.concesionaria_autos_motos.modelo.Auto;
 import segundo_tp_poo_turno_noche.concesionaria_autos_motos.modelo.Moto;
 import segundo_tp_poo_turno_noche.concesionaria_autos_motos.modelo.Vehiculo;
@@ -24,13 +26,13 @@ public class ConcesionariaServicio {
 
     public Vehiculo obtenerVehiculoMasCaro(List<Vehiculo> vehiculos) {
         return vehiculos.stream()
-                .max((vehiculo1, vehiculo2) -> Double.compare(vehiculo1.getPrecio(), vehiculo2.getPrecio()))
+                .max(Comparator.comparingDouble(Vehiculo::getPrecio))
                 .orElse(null);
     }
 
     public Vehiculo obtenerVehiculoMasBarato(List<Vehiculo> vehiculos) {
         return vehiculos.stream()
-                .min((vehiculo1, vehiculo2) -> Double.compare(vehiculo1.getPrecio(), vehiculo2.getPrecio()))
+                .min(Comparator.comparingDouble(Vehiculo::getPrecio))
                 .orElse(null);
     }
 
@@ -44,12 +46,48 @@ public class ConcesionariaServicio {
     public List<Vehiculo> ordenarPorPrecioDescendente(List<Vehiculo> vehiculos) {
         return vehiculos.stream()
                 .sorted(Comparator.comparingDouble(Vehiculo::getPrecio).reversed())
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public List<Vehiculo> ordenarPorOrdenNatural(List<Vehiculo> vehiculos) {
         return vehiculos.stream()
                 .sorted()
-                .toList();
+                .collect(Collectors.toList());
+    }
+
+    public String obtenerResultadoPrecios(List<Vehiculo> vehiculos) {
+
+        Vehiculo vehiculoMasCaro = obtenerVehiculoMasCaro(vehiculos);
+        Vehiculo vehiculoMasBarato = obtenerVehiculoMasBarato(vehiculos);
+
+        if (vehiculoMasCaro != null && vehiculoMasBarato != null) {
+            return "Vehículo más caro: "
+                    + vehiculoMasCaro.obtenerDescripcionCorta()
+                    + "\nVehículo más barato: "
+                    + vehiculoMasBarato.obtenerDescripcionCorta();
+        }
+
+        return "No hay vehículos disponibles.";
+    }
+
+    public String obtenerResultadoBusqueda(List<Vehiculo> vehiculos, String letra) {
+
+        Vehiculo vehiculoConLetra = buscarVehiculoPorLetra(vehiculos, letra);
+
+        if (vehiculoConLetra != null) {
+            return "Vehículo que contiene en el modelo la letra '"
+                    + letra + "': "
+                    + vehiculoConLetra.obtenerDescripcionCorta() + " "
+                    + vehiculoConLetra.obtenerPrecioFormateado();
+        }
+
+        return "No se encontró ningún vehículo con la letra '" + letra + "'.";
+    }
+
+    public String obtenerFichaVehiculo(InformacionVehiculo vehiculo) {
+        return vehiculo.obtenerTipoVehiculo() + ": "
+                + vehiculo.obtenerDescripcionCorta()
+                + " - Precio: "
+                + vehiculo.obtenerPrecioFormateado();
     }
 }

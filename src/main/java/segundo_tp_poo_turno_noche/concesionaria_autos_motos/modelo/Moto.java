@@ -3,7 +3,6 @@ package segundo_tp_poo_turno_noche.concesionaria_autos_motos.modelo;
 import lombok.Getter;
 
 @Getter
-
 public class Moto extends Vehiculo {
 
     private int cilindrada;
@@ -18,7 +17,11 @@ public class Moto extends Vehiculo {
         return "Marca: " + getMarca()
                 + " // Modelo: " + getModelo()
                 + " // Cilindrada: " + cilindrada + "c"
-                + " // Precio: " + getPrecioFormateado();
+                + " // Precio: " + obtenerPrecioFormateado();
     }
 
+    @Override
+    public String obtenerTipoVehiculo() {
+        return "Moto";
+    }
 }

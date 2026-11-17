@@ -3,7 +3,6 @@ package segundo_tp_poo_turno_noche.concesionaria_autos_motos.modelo;
 import lombok.Getter;
 
 @Getter
-
 public class Auto extends Vehiculo {
 
     private int cantidadPuertas;
@@ -18,7 +17,11 @@ public class Auto extends Vehiculo {
         return "Marca: " + getMarca()
                 + " // Modelo: " + getModelo()
                 + " // Puertas: " + cantidadPuertas
-                + " // Precio: " + getPrecioFormateado();
+                + " // Precio: " + obtenerPrecioFormateado();
     }
 
+    @Override
+    public String obtenerTipoVehiculo() {
+        return "Auto";
+    }
 }

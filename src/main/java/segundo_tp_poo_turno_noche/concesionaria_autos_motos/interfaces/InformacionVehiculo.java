@@ -4,6 +4,7 @@ public interface InformacionVehiculo {
 
     String obtenerDescripcionCorta();
 
+    String obtenerPrecioFormateado();
+
+    String obtenerTipoVehiculo();
 }
-
-

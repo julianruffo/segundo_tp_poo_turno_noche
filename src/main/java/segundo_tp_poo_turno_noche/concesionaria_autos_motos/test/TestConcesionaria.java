@@ -1,7 +1,6 @@
 package segundo_tp_poo_turno_noche.concesionaria_autos_motos.test;
 
 import java.util.List;
-import java.util.Locale;
 
 import segundo_tp_poo_turno_noche.concesionaria_autos_motos.modelo.Vehiculo;
 import segundo_tp_poo_turno_noche.concesionaria_autos_motos.servicio.ConcesionariaServicio;
@@ -13,6 +12,9 @@ public class TestConcesionaria {
         ConcesionariaServicio servicio = new ConcesionariaServicio();
         List<Vehiculo> vehiculos = servicio.cargarVehiculos();
 
+        System.out.println();
+        System.out.println();
+
         for (Vehiculo vehiculo : vehiculos) {
             System.out.println(vehiculo);
         }
@@ -21,28 +23,8 @@ public class TestConcesionaria {
         System.out.println("=============================");
         System.out.println();
 
-        Vehiculo vehiculoMasCaro = servicio.obtenerVehiculoMasCaro(vehiculos);
-        Vehiculo vehiculoMasBarato = servicio.obtenerVehiculoMasBarato(vehiculos);
-
-        if (vehiculoMasCaro != null && vehiculoMasBarato != null) {
-            System.out.println("Vehículo más caro: "
-                    + vehiculoMasCaro.obtenerDescripcionCorta());
-
-            System.out.println("Vehículo más barato: "
-                    + vehiculoMasBarato.obtenerDescripcionCorta());
-        }
-
-        Vehiculo vehiculoConLetra = servicio.buscarVehiculoPorLetra(vehiculos, "Y");
-
-        if (vehiculoConLetra != null) {
-            System.out.println("Vehículo que contiene en el modelo la letra 'Y': "
-                    + vehiculoConLetra.obtenerDescripcionCorta() + " "
-                    + String.format(Locale.US, "$%,.2f",
-                            vehiculoConLetra.getPrecio())
-                            .replace(",", "X")
-                            .replace(".", ",")
-                            .replace("X", "."));
-        }
+        System.out.println(servicio.obtenerResultadoPrecios(vehiculos));
+        System.out.println(servicio.obtenerResultadoBusqueda(vehiculos, "Y"));
 
         System.out.println();
         System.out.println("=============================");
@@ -65,5 +47,8 @@ public class TestConcesionaria {
         for (Vehiculo vehiculo : vehiculosOrdenNatural) {
             System.out.println(vehiculo);
         }
+
+        // System.out.println(servicio.obtenerFichaVehiculo(vehiculos.get(0)));
     }
+
 }

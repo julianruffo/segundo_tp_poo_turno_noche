@@ -1,34 +1,34 @@
 package segundo_tp_poo_turno_noche.concesionaria_autos_motos.modelo;
 
-import java.util.Locale;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import segundo_tp_poo_turno_noche.concesionaria_autos_motos.interfaces.InformacionVehiculo;
 
 @Getter
+@AllArgsConstructor
 public abstract class Vehiculo implements Comparable<Vehiculo>, InformacionVehiculo {
 
     private String marca;
     private String modelo;
     private double precio;
 
-    public Vehiculo(String marca, String modelo, double precio) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.precio = precio;
-    }
-
     @Override
     public String obtenerDescripcionCorta() {
         return marca + " " + modelo;
     }
 
-    protected String getPrecioFormateado() {
-        String precioTexto = String.format(Locale.US, "%,.2f", precio);
+    @Override
+    public String obtenerPrecioFormateado() {
+        DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+        simbolos.setDecimalSeparator(',');
+        simbolos.setGroupingSeparator('.');
 
-        return "$" + precioTexto.replace(",", "X")
-                .replace(".", ",")
-                .replace("X", ".");
+        DecimalFormat formato = new DecimalFormat("#,##0.00", simbolos);
+
+        return "$" + formato.format(precio);
     }
 
     @Override
