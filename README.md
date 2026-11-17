@@ -1,53 +1,85 @@
-# Segundo Trabajo Práctico – Java POO
-## Concesionaria de Autos y Motos
+Segundo Trabajo Práctico – Java POO
 
-### Descripción del proyecto
+Concesionaria de Autos y Motos
 
-Este proyecto fue desarrollado como parte del segundo trabajo práctico obligatorio del curso de Java, con el objetivo de aplicar los conceptos de **Programación Orientada a Objetos (POO)**, el uso de colecciones y la API Stream.
+Descripción del proyecto
 
-El sistema simula una concesionaria de autos y motos, permitiendo cargar vehículos, consultar sus características, realizar búsquedas y ordenarlos según diferentes criterios.
+Este proyecto fue desarrollado como parte del segundo trabajo práctico obligatorio del curso de Java, con el objetivo de aplicar los conceptos de Programación Orientada a Objetos (POO), colecciones, interfaces, herencia, polimorfismo y API Stream.
+
+El sistema simula una concesionaria de autos y motos. Permite cargar vehículos, consultar sus características, realizar búsquedas y ordenarlos según diferentes criterios.
 
 La aplicación muestra los resultados por consola, sin requerir el ingreso de datos por parte del usuario.
 
-### Tecnologías utilizadas
+Tecnologías utilizadas
 
-- Java
-- Spring Boot
-- Maven
-- Lombok
-- Visual Studio Code
-- Git y GitHub
+Java
 
-### Conceptos de Java aplicados
+Spring Boot
 
-**Programación Orientada a Objetos**
-- Clases y objetos.
-- Encapsulamiento.
-- Herencia.
-- Polimorfismo.
-- Clases abstractas.
-- Interfaces.
-- Sobrescritura de métodos (`@Override`).
+Maven
 
-**Colecciones y ordenamiento**
-- `List` y `ArrayList`.
-- Genéricos.
-- `Comparable` y `compareTo()`.
-- `Comparator`.
-- Ordenamiento natural y personalizado.
+Lombok
 
-**API Stream**
-- `stream()`.
-- `filter()`.
-- `max()` y `min()`.
-- `sorted()`.
-- `findFirst()`.
-- `toList()`.
-- Expresiones lambda y referencias a métodos.
+Visual Studio Code
 
-### Estructura del proyecto
+Git y GitHub
 
-```text
+Conceptos de Java aplicados
+
+Programación Orientada a Objetos
+
+Clases y objetos.
+
+Encapsulamiento.
+
+Herencia.
+
+Polimorfismo.
+
+Clases abstractas.
+
+Interfaces.
+
+Sobrescritura de métodos mediante @Override.
+
+Constructores y utilización de super().
+
+Lombok
+
+@Getter: generación automática de métodos de acceso.
+
+@AllArgsConstructor: generación del constructor con todos los atributos.
+
+Colecciones y ordenamiento
+
+List y ArrayList.
+
+Genéricos.
+
+Comparable y compareTo().
+
+Comparator.
+
+Ordenamiento natural y personalizado.
+
+API Stream
+
+stream().
+
+filter().
+
+max() y min().
+
+sorted().
+
+findFirst().
+
+collect(Collectors.toList()).
+
+Expresiones lambda y referencias a métodos.
+
+Estructura del proyecto
+
 src/
 ├── main/
 │   ├── java/
@@ -71,47 +103,117 @@ src/
         └── segundo_tp_poo_turno_noche/
             └── concesionaria_autos_motos/
                 └── ConcesionariaAutosMotosApplicationTests.java
-```
 
-### Descripción de las clases
+Descripción de las clases
 
-**Vehiculo (clase abstracta)**
+Vehiculo (clase abstracta)
 
-Contiene los atributos comunes a todos los vehículos: marca, modelo y precio. Implementa `Comparable<Vehiculo>` para establecer el orden natural por marca, modelo y precio.
+Contiene los atributos comunes a todos los vehículos: marca, modelo y precio.
 
-**Auto**
+Implementa Comparable<Vehiculo> para establecer el orden natural de los vehículos, comparando primero la marca, después el modelo y finalmente el precio.
 
-Hereda de `Vehiculo` e incorpora la cantidad de puertas. Sobrescribe `toString()` para mostrar sus características.
+También implementa la interfaz InformacionVehiculo, proporcionando los métodos comunes para obtener una descripción corta y el precio formateado.
 
-**Moto**
+Utiliza las anotaciones @Getter y @AllArgsConstructor de Lombok.
 
-Hereda de `Vehiculo` e incorpora la cilindrada. Sobrescribe `toString()` para mostrar sus características.
+Auto
 
-**InformacionVehiculo (interfaz)**
+Hereda de Vehiculo e incorpora el atributo cantidadPuertas.
 
-Define el método `obtenerDescripcionCorta()`, utilizado para obtener la marca y el modelo de un vehículo.
+Utiliza @Getter, un constructor que invoca super() y un método toString() personalizado para mostrar sus características.
 
-**ConcesionariaServicio**
+Implementa obtenerTipoVehiculo(), devolviendo "Auto".
 
-Contiene los métodos encargados de cargar, buscar y ordenar los vehículos utilizando colecciones y Stream API.
+Moto
 
-**TestConcesionaria**
+Hereda de Vehiculo e incorpora el atributo cilindrada.
 
-Contiene el método `main()` desde el cual se ejecutan las operaciones y se muestran los resultados por consola.
+Utiliza @Getter, un constructor que invoca super() y un método toString() personalizado.
 
-### Funcionalidades implementadas
+Implementa obtenerTipoVehiculo(), devolviendo "Moto".
 
-1. Carga de autos y motos mediante un único método.
-2. Visualización de todos los vehículos con sus características y precios.
-3. Búsqueda del vehículo más caro.
-4. Búsqueda del vehículo más barato.
-5. Búsqueda de vehículos por una letra contenida en el modelo.
-6. Ordenamiento por precio de mayor a menor.
-7. Ordenamiento natural por marca, modelo y precio.
+InformacionVehiculo (interfaz)
 
-### Salida de consola
+Establece un contrato común para consultar información de los vehículos mediante tres métodos:
 
-```text
+obtenerDescripcionCorta(): devuelve la marca y el modelo.
+
+obtenerPrecioFormateado(): devuelve el precio con separadores de miles y decimales.
+
+obtenerTipoVehiculo(): identifica si el vehículo es un auto o una moto.
+
+La interfaz permite utilizar polimorfismo, trabajando con diferentes tipos de vehículos a través de un contrato común.
+
+ConcesionariaServicio
+
+Contiene la lógica principal del programa.
+
+Sus responsabilidades incluyen:
+
+Cargar los vehículos.
+
+Obtener el vehículo más caro y el más barato.
+
+Buscar vehículos por una letra del modelo.
+
+Ordenar por precio descendente.
+
+Ordenar por orden natural.
+
+Validar los resultados de las búsquedas.
+
+Obtener una ficha informativa utilizando la interfaz InformacionVehiculo.
+
+Utiliza colecciones, expresiones lambda, referencias a métodos y operaciones de la API Stream.
+
+TestConcesionaria
+
+Contiene el método main(), encargado de ejecutar las operaciones del servicio y mostrar los resultados por consola.
+
+Las validaciones de las búsquedas se encuentran en ConcesionariaServicio, manteniendo separada la lógica del programa.
+
+Funcionalidades implementadas
+
+Carga de autos y motos mediante un único método.
+
+Visualización de los vehículos con sus características y precios.
+
+Identificación del vehículo más caro.
+
+Identificación del vehículo más barato.
+
+Búsqueda por una letra contenida en el modelo.
+
+Ordenamiento por precio de mayor a menor.
+
+Ordenamiento natural por marca, modelo y precio.
+
+Formateo de precios con separadores de miles y decimales.
+
+Implementación de una interfaz para consultar información común de los vehículos.
+
+Criterios de ordenamiento
+
+Orden natural
+
+Se implementa mediante Comparable<Vehiculo> y el método compareTo() de la clase Vehiculo.
+
+Los criterios se aplican en el siguiente orden:
+
+Marca.
+
+Modelo.
+
+Precio.
+
+Ordenamiento por precio descendente
+
+Se utiliza Comparator.comparingDouble(Vehiculo::getPrecio).reversed() para ordenar los vehículos desde el precio más alto hasta el más bajo.
+
+Este criterio es independiente del orden natural definido en compareTo().
+
+Salida de consola
+
 Marca: Peugeot // Modelo: 206 // Puertas: 4 // Precio: $200.000,00
 Marca: Honda // Modelo: Titan // Cilindrada: 125c // Precio: $60.000,00
 Marca: Peugeot // Modelo: 208 // Puertas: 5 // Precio: $250.000,00
@@ -138,22 +240,26 @@ Marca: Honda // Modelo: Titan // Cilindrada: 125c // Precio: $60.000,00
 Marca: Peugeot // Modelo: 206 // Puertas: 4 // Precio: $200.000,00
 Marca: Peugeot // Modelo: 208 // Puertas: 5 // Precio: $250.000,00
 Marca: Yamaha // Modelo: YBR // Cilindrada: 160c // Precio: $80.500,50
-```
 
-### Ejecución del proyecto
+La ejecución incluye dos líneas en blanco iniciales, según el formato solicitado.
 
-1. Clonar el repositorio:
+Ejecución del proyecto
 
-   `git clone https://github.com/julianruffo/segundo_tp_poo_turno_noche.git`
+Clonar el repositorio:
 
-2. Abrir el proyecto en Visual Studio Code.
-3. Verificar que Java y las dependencias de Maven estén correctamente configurados.
-4. Ejecutar la clase `TestConcesionaria.java` mediante su método `main()`.
-5. Visualizar los resultados en la consola.
+git clone https://github.com/julianruffo/segundo_tp_poo_turno_noche.git
 
-### Autor
+Abrir el proyecto en Visual Studio Code.
 
-**Julián Ruffo**
+Verificar que Java y las dependencias de Maven estén correctamente configurados.
+
+Ejecutar TestConcesionaria.java mediante su método main().
+
+Visualizar los resultados en la consola.
+
+Autor
+
+Julián Ruffo
 
 Segundo Trabajo Práctico Obligatorio – Java POO
 
