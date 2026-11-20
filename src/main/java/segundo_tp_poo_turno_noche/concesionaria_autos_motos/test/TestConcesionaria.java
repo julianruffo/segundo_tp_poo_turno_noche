@@ -47,6 +47,8 @@ public class TestConcesionaria {
         for (Vehiculo vehiculo : vehiculosOrdenNatural) {
             System.out.println(vehiculo);
         }
+        System.out.println();
+        System.out.println();
 
         // System.out.println(servicio.obtenerFichaVehiculo(vehiculos.get(0)));
     }
